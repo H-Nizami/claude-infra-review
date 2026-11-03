@@ -1,0 +1,17 @@
+Seeded scenario S11 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/k8s/service.yaml b/fixtures/k8s/service.yaml
+--- a/fixtures/k8s/service.yaml
++++ b/fixtures/k8s/service.yaml
+@@ -5,8 +5,10 @@
+   namespace: shop
+   labels:
+     app.kubernetes.io/name: orders-api
++  annotations:
++    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+ spec:
+-  type: ClusterIP
++  type: LoadBalancer
+   selector:
+     app.kubernetes.io/name: orders-api
+   ports:

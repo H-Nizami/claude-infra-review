@@ -1,0 +1,18 @@
+id: S11
+title: "orders-api Service becomes an internet-facing LoadBalancer with no source ranges"
+kind: positive
+patch: patch.diff
+files: [fixtures/k8s/service.yaml]
+expected:
+  - id: S11-a
+    file: fixtures/k8s/service.yaml
+    lines: [8, 11]
+    category: public_exposure
+    severity: high
+    min_severity: medium
+    description: "Internal API exposed to the internet through a public NLB/ELB with no loadBalancerSourceRanges and no PUBLIC-APPROVED line; POLICY.md rule 4."
+    scanners_expected: "unknown"
+    semantic_only: false
+    scanner_rule_ids: []
+    scanner_rule_ids_source: none-observed
+notes: ""

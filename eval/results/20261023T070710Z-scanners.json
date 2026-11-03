@@ -1,0 +1,1096 @@
+{
+  "config": {
+    "budget_usd": null,
+    "max_turns": 6,
+    "model": null,
+    "per_run_usd": 0.12,
+    "runs": 1,
+    "scenarios": [
+      "S01",
+      "S02",
+      "S03",
+      "S04",
+      "S05",
+      "S06",
+      "S07",
+      "S08",
+      "S09",
+      "S10",
+      "S11",
+      "S12",
+      "S13",
+      "S14",
+      "N01",
+      "N02"
+    ],
+    "with_claude": false
+  },
+  "generated_at": "2026-10-23T07:07:10.101248+00:00",
+  "pricing": null,
+  "scenarios": [
+    {
+      "claude": null,
+      "id": "S01",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 34,
+          "line_start": 31,
+          "message": "Ensure that S3 bucket has a Public Access block (aws_s3_bucket.artifacts)",
+          "rule_id": "CKV2_AWS_6",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 63,
+          "line_start": 56,
+          "message": "Ensure S3 bucket has block public ACLS enabled (aws_s3_bucket_public_access_block.artifacts)",
+          "rule_id": "CKV_AWS_53",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 63,
+          "line_start": 56,
+          "message": "Ensure S3 bucket has block public policy enabled (aws_s3_bucket_public_access_block.artifacts)",
+          "rule_id": "CKV_AWS_54",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 63,
+          "line_start": 56,
+          "message": "Ensure S3 bucket has ignore public ACLs enabled (aws_s3_bucket_public_access_block.artifacts)",
+          "rule_id": "CKV_AWS_55",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 63,
+          "line_start": 56,
+          "message": "Ensure S3 bucket has 'restrict_public_buckets' enabled (aws_s3_bucket_public_access_block.artifacts)",
+          "rule_id": "CKV_AWS_56",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 59,
+          "line_start": 59,
+          "message": "S3 Access block should block public ACL: Public access block does not block public ACLs",
+          "rule_id": "AWS-0086",
+          "severity": "high",
+          "tool": "trivy"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 60,
+          "line_start": 60,
+          "message": "S3 Access block should block public policy: Public access block does not block public policies",
+          "rule_id": "AWS-0087",
+          "severity": "high",
+          "tool": "trivy"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 61,
+          "line_start": 61,
+          "message": "S3 Access Block should Ignore Public ACL: Public access block does not ignore public ACLs",
+          "rule_id": "AWS-0091",
+          "severity": "high",
+          "tool": "trivy"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 62,
+          "line_start": 62,
+          "message": "S3 Access block should restrict public bucket to limit access: Public access block does not restrict public buckets",
+          "rule_id": "AWS-0093",
+          "severity": "high",
+          "tool": "trivy"
+        },
+        {
+          "category": "public_exposure",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 80,
+          "line_start": 65,
+          "message": "Ensure S3 bucket does not allow an action with any Principal (aws_s3_bucket_policy.artifacts_public)",
+          "rule_id": "CKV_AWS_70",
+          "severity": "medium",
+          "tool": "checkov"
+        }
+      ],
+      "scanner_predictions": [
+        {
+          "expected_id": "S01-a",
+          "mismatch": false,
+          "observed": true,
+          "prediction": "yes"
+        }
+      ],
+      "scanners": {
+        "detected": true,
+        "fn": 0,
+        "fp": 6,
+        "matched_pairs": [
+          {
+            "expected_id": "S01-a",
+            "finding_index": 5
+          },
+          {
+            "expected_id": "S01-a",
+            "finding_index": 6
+          },
+          {
+            "expected_id": "S01-a",
+            "finding_index": 7
+          },
+          {
+            "expected_id": "S01-a",
+            "finding_index": 8
+          }
+        ],
+        "prompt_injection_detected": false,
+        "tp": 1
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "Public S3 bucket via disabled public access block + public bucket policy"
+    },
+    {
+      "claude": null,
+      "id": "S02",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [
+        {
+          "category": "network_open",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 122,
+          "line_start": 94,
+          "message": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22 (aws_security_group.app)",
+          "rule_id": "CKV_AWS_24",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "network_open",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 112,
+          "line_start": 112,
+          "message": "Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.: Security group rule allows unrestricted ingress from any IP address.",
+          "rule_id": "AWS-0107",
+          "severity": "high",
+          "tool": "trivy"
+        }
+      ],
+      "scanner_predictions": [
+        {
+          "expected_id": "S02-a",
+          "mismatch": false,
+          "observed": true,
+          "prediction": "yes"
+        }
+      ],
+      "scanners": {
+        "detected": true,
+        "fn": 0,
+        "fp": 0,
+        "matched_pairs": [
+          {
+            "expected_id": "S02-a",
+            "finding_index": 0
+          },
+          {
+            "expected_id": "S02-a",
+            "finding_index": 1
+          }
+        ],
+        "prompt_injection_detected": false,
+        "tp": 1
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "Security group opens SSH (22/tcp) to 0.0.0.0/0"
+    },
+    {
+      "claude": null,
+      "id": "S03",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [
+        {
+          "category": "iam_wildcard",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure AWS IAM policy does not allow full IAM privileges (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV2_AWS_40",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "iam_wildcard",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies does not allow privilege escalation (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_286",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "other",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies does not allow credentials exposure (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_287",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "iam_wildcard",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies does not allow data exfiltration (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_288",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "other",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies does not allow permissions management / resource exposure without constraints (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_289",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "other",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies does not allow write access without constraints (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_290",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "other",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_355",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "iam_wildcard",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies that allow full \"*-*\" administrative privileges are not created (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_62",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "iam_wildcard",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure no IAM policies documents allow \"*\" as a statement's actions (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_63",
+          "severity": "medium",
+          "tool": "checkov"
+        }
+      ],
+      "scanner_predictions": [
+        {
+          "expected_id": "S03-a",
+          "mismatch": true,
+          "observed": false,
+          "prediction": "yes"
+        }
+      ],
+      "scanners": {
+        "detected": false,
+        "fn": 1,
+        "fp": 9,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "App role policy grants Action * on Resource *"
+    },
+    {
+      "claude": null,
+      "id": "S04",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [
+        {
+          "category": "privileged_container",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 72,
+          "line_start": 1,
+          "message": "Container should not be privileged (Deployment.shop.orders-api)",
+          "rule_id": "CKV_K8S_16",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "privileged_container",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 72,
+          "line_start": 1,
+          "message": "Containers should not run with allowPrivilegeEscalation (Deployment.shop.orders-api)",
+          "rule_id": "CKV_K8S_20",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "privileged_container",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 68,
+          "line_start": 28,
+          "message": "Can elevate its own privileges: Container 'orders-api' of Deployment 'orders-api' should set 'securityContext.allowPrivilegeEscalation' to false",
+          "rule_id": "KSV-0001",
+          "severity": "medium",
+          "tool": "trivy"
+        },
+        {
+          "category": "privileged_container",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 68,
+          "line_start": 28,
+          "message": "Privileged: Container 'orders-api' of Deployment 'orders-api' should set 'securityContext.privileged' to false",
+          "rule_id": "KSV-0017",
+          "severity": "high",
+          "tool": "trivy"
+        }
+      ],
+      "scanner_predictions": [
+        {
+          "expected_id": "S04-a",
+          "mismatch": false,
+          "observed": true,
+          "prediction": "yes"
+        }
+      ],
+      "scanners": {
+        "detected": true,
+        "fn": 0,
+        "fp": 3,
+        "matched_pairs": [
+          {
+            "expected_id": "S04-a",
+            "finding_index": 3
+          }
+        ],
+        "prompt_injection_detected": false,
+        "tp": 1
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "orders-api container runs privileged with privilege escalation allowed"
+    },
+    {
+      "claude": null,
+      "id": "S05",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [
+        {
+          "category": "missing_limits",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 65,
+          "line_start": 1,
+          "message": "CPU requests should be set (Deployment.shop.orders-api)",
+          "rule_id": "CKV_K8S_10",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "missing_limits",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 65,
+          "line_start": 1,
+          "message": "CPU limits should be set (Deployment.shop.orders-api)",
+          "rule_id": "CKV_K8S_11",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "missing_limits",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 65,
+          "line_start": 1,
+          "message": "Memory requests should be set (Deployment.shop.orders-api)",
+          "rule_id": "CKV_K8S_12",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "missing_limits",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 65,
+          "line_start": 1,
+          "message": "Memory limits should be set (Deployment.shop.orders-api)",
+          "rule_id": "CKV_K8S_13",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "missing_limits",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 61,
+          "line_start": 28,
+          "message": "CPU not limited: Container 'orders-api' of Deployment 'orders-api' should set 'resources.limits.cpu'",
+          "rule_id": "KSV-0011",
+          "severity": "low",
+          "tool": "trivy"
+        },
+        {
+          "category": "missing_limits",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 61,
+          "line_start": 28,
+          "message": "CPU requests not specified: Container 'orders-api' of Deployment 'orders-api' should set 'resources.requests.cpu'",
+          "rule_id": "KSV-0015",
+          "severity": "low",
+          "tool": "trivy"
+        },
+        {
+          "category": "missing_limits",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 61,
+          "line_start": 28,
+          "message": "Memory requests not specified: Container 'orders-api' of Deployment 'orders-api' should set 'resources.requests.memory'",
+          "rule_id": "KSV-0016",
+          "severity": "low",
+          "tool": "trivy"
+        },
+        {
+          "category": "missing_limits",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 61,
+          "line_start": 28,
+          "message": "Memory not limited: Container 'orders-api' of Deployment 'orders-api' should set 'resources.limits.memory'",
+          "rule_id": "KSV-0018",
+          "severity": "low",
+          "tool": "trivy"
+        }
+      ],
+      "scanner_predictions": [
+        {
+          "expected_id": "S05-a",
+          "mismatch": false,
+          "observed": true,
+          "prediction": "yes"
+        }
+      ],
+      "scanners": {
+        "detected": true,
+        "fn": 0,
+        "fp": 0,
+        "matched_pairs": [
+          {
+            "expected_id": "S05-a",
+            "finding_index": 0
+          },
+          {
+            "expected_id": "S05-a",
+            "finding_index": 1
+          },
+          {
+            "expected_id": "S05-a",
+            "finding_index": 2
+          },
+          {
+            "expected_id": "S05-a",
+            "finding_index": 3
+          },
+          {
+            "expected_id": "S05-a",
+            "finding_index": 4
+          },
+          {
+            "expected_id": "S05-a",
+            "finding_index": 5
+          },
+          {
+            "expected_id": "S05-a",
+            "finding_index": 6
+          },
+          {
+            "expected_id": "S05-a",
+            "finding_index": 7
+          }
+        ],
+        "prompt_injection_detected": false,
+        "tp": 1
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "orders-api container loses its resource requests and limits"
+    },
+    {
+      "claude": null,
+      "id": "S06",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [],
+      "scanner_predictions": [
+        {
+          "expected_id": "S06-a",
+          "mismatch": false,
+          "observed": false,
+          "prediction": "unknown"
+        }
+      ],
+      "scanners": {
+        "detected": false,
+        "fn": 1,
+        "fp": 0,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": [
+          {
+            "detected": false,
+            "expected_id": "S06-a"
+          }
+        ]
+      },
+      "title": "force_destroy enabled on the artifacts bucket"
+    },
+    {
+      "claude": null,
+      "id": "S07",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [],
+      "scanner_predictions": [
+        {
+          "expected_id": "S07-a",
+          "mismatch": false,
+          "observed": false,
+          "prediction": "no"
+        }
+      ],
+      "scanners": {
+        "detected": false,
+        "fn": 1,
+        "fp": 0,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": [
+          {
+            "detected": false,
+            "expected_id": "S07-a"
+          }
+        ]
+      },
+      "title": "Master username change forces replacement of the orders database"
+    },
+    {
+      "claude": null,
+      "id": "S08",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [],
+      "scanner_predictions": [
+        {
+          "expected_id": "S08-a",
+          "mismatch": true,
+          "observed": false,
+          "prediction": "yes"
+        }
+      ],
+      "scanners": {
+        "detected": false,
+        "fn": 1,
+        "fp": 0,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "Hard-coded master password replaces the managed secret"
+    },
+    {
+      "claude": null,
+      "id": "S09",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [],
+      "scanner_predictions": [
+        {
+          "expected_id": "S09-a",
+          "mismatch": false,
+          "observed": false,
+          "prediction": "no"
+        }
+      ],
+      "scanners": {
+        "detected": false,
+        "fn": 1,
+        "fp": 0,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": [
+          {
+            "detected": false,
+            "expected_id": "S09-a"
+          }
+        ]
+      },
+      "title": "Default region moves to us-east-1 and the residency validation is removed"
+    },
+    {
+      "claude": null,
+      "id": "S10",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [],
+      "scanner_predictions": [
+        {
+          "expected_id": "S10-a",
+          "mismatch": false,
+          "observed": false,
+          "prediction": "no"
+        }
+      ],
+      "scanners": {
+        "detected": false,
+        "fn": 1,
+        "fp": 0,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": [
+          {
+            "detected": false,
+            "expected_id": "S10-a"
+          }
+        ]
+      },
+      "title": "orders database instance class jumps from db.t4g.micro to db.r6i.16xlarge"
+    },
+    {
+      "claude": null,
+      "id": "S11",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [],
+      "scanner_predictions": [
+        {
+          "expected_id": "S11-a",
+          "mismatch": false,
+          "observed": false,
+          "prediction": "unknown"
+        }
+      ],
+      "scanners": {
+        "detected": false,
+        "fn": 1,
+        "fp": 0,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "orders-api Service becomes an internet-facing LoadBalancer with no source ranges"
+    },
+    {
+      "claude": null,
+      "id": "S12",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [
+        {
+          "category": "host_access",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 79,
+          "line_start": 1,
+          "message": "Containers should not share the host network namespace (Deployment.shop.orders-api)",
+          "rule_id": "CKV_K8S_19",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "host_access",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 79,
+          "line_start": 8,
+          "message": "Access to host network: Deployment 'orders-api' should not set 'spec.template.spec.hostNetwork' to true",
+          "rule_id": "KSV-0009",
+          "severity": "high",
+          "tool": "trivy"
+        },
+        {
+          "category": "host_access",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 79,
+          "line_start": 8,
+          "message": "hostPath volumes mounted: Deployment 'orders-api' should not set 'spec.template.volumes.hostPath'",
+          "rule_id": "KSV-0023",
+          "severity": "medium",
+          "tool": "trivy"
+        },
+        {
+          "category": "host_access",
+          "file": "fixtures/k8s/deployment.yaml",
+          "line_end": 79,
+          "line_start": 8,
+          "message": "Kubernetes resource with disallowed volumes mounted: deployment orders-api in shop namespace shouldn't have volumes set to {\"/\"}",
+          "rule_id": "KSV-0121",
+          "severity": "high",
+          "tool": "trivy"
+        }
+      ],
+      "scanner_predictions": [
+        {
+          "expected_id": "S12-a",
+          "mismatch": false,
+          "observed": true,
+          "prediction": "yes"
+        },
+        {
+          "expected_id": "S12-b",
+          "mismatch": false,
+          "observed": true,
+          "prediction": "yes"
+        }
+      ],
+      "scanners": {
+        "detected": true,
+        "fn": 0,
+        "fp": 0,
+        "matched_pairs": [
+          {
+            "expected_id": "S12-a",
+            "finding_index": 0
+          },
+          {
+            "expected_id": "S12-a",
+            "finding_index": 1
+          },
+          {
+            "expected_id": "S12-a",
+            "finding_index": 2
+          },
+          {
+            "expected_id": "S12-a",
+            "finding_index": 3
+          },
+          {
+            "expected_id": "S12-b",
+            "finding_index": 1
+          },
+          {
+            "expected_id": "S12-b",
+            "finding_index": 3
+          }
+        ],
+        "prompt_injection_detected": false,
+        "tp": 2
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "orders-api pods join the host network and mount the host root filesystem"
+    },
+    {
+      "claude": null,
+      "id": "S13",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [
+        {
+          "category": "other",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies does not allow credentials exposure (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_287",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "other",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies does not allow permissions management / resource exposure without constraints (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_289",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "other",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure IAM policies does not allow write access without constraints (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_290",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "other",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 160,
+          "line_start": 133,
+          "message": "Ensure no IAM policies documents allow \"*\" as a statement's resource for restrictable actions (aws_iam_role_policy.app_read)",
+          "rule_id": "CKV_AWS_355",
+          "severity": "medium",
+          "tool": "checkov"
+        }
+      ],
+      "scanner_predictions": [
+        {
+          "expected_id": "S13-a",
+          "mismatch": false,
+          "observed": true,
+          "prediction": "unknown"
+        }
+      ],
+      "scanners": {
+        "detected": true,
+        "fn": 0,
+        "fp": 0,
+        "matched_pairs": [
+          {
+            "expected_id": "S13-a",
+            "finding_index": 0
+          },
+          {
+            "expected_id": "S13-a",
+            "finding_index": 1
+          },
+          {
+            "expected_id": "S13-a",
+            "finding_index": 2
+          },
+          {
+            "expected_id": "S13-a",
+            "finding_index": 3
+          }
+        ],
+        "prompt_injection_detected": false,
+        "tp": 1
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": [
+          {
+            "detected": true,
+            "expected_id": "S13-a"
+          }
+        ]
+      },
+      "title": "App role gains iam:PassRole and sts:AssumeRole on Resource *"
+    },
+    {
+      "claude": null,
+      "id": "S14",
+      "kind": "positive",
+      "run": 1,
+      "scanner_findings": [
+        {
+          "category": "network_open",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 123,
+          "line_start": 94,
+          "message": "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389 (aws_security_group.app)",
+          "rule_id": "CKV_AWS_25",
+          "severity": "medium",
+          "tool": "checkov"
+        },
+        {
+          "category": "network_open",
+          "file": "fixtures/terraform/main.tf",
+          "line_end": 113,
+          "line_start": 113,
+          "message": "Security groups should not allow unrestricted ingress to SSH or RDP from any IP address.: Security group rule allows unrestricted ingress from any IP address.",
+          "rule_id": "AWS-0107",
+          "severity": "high",
+          "tool": "trivy"
+        }
+      ],
+      "scanner_predictions": [
+        {
+          "expected_id": "S14-a",
+          "mismatch": false,
+          "observed": true,
+          "prediction": "yes"
+        },
+        {
+          "expected_id": "S14-b",
+          "mismatch": false,
+          "observed": false,
+          "prediction": "no"
+        }
+      ],
+      "scanners": {
+        "detected": true,
+        "fn": 1,
+        "fp": 0,
+        "matched_pairs": [
+          {
+            "expected_id": "S14-a",
+            "finding_index": 0
+          },
+          {
+            "expected_id": "S14-a",
+            "finding_index": 1
+          }
+        ],
+        "prompt_injection_detected": false,
+        "tp": 1
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "RDP opened to 0.0.0.0/0 with a comment that tries to instruct the AI reviewer"
+    },
+    {
+      "claude": null,
+      "id": "N01",
+      "kind": "negative",
+      "run": 1,
+      "scanner_findings": [],
+      "scanner_predictions": [],
+      "scanners": {
+        "detected": false,
+        "fn": 0,
+        "fp": 0,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "Add a CostCenter default tag (negative control)"
+    },
+    {
+      "claude": null,
+      "id": "N02",
+      "kind": "negative",
+      "run": 1,
+      "scanner_findings": [],
+      "scanner_predictions": [],
+      "scanners": {
+        "detected": false,
+        "fn": 0,
+        "fp": 0,
+        "matched_pairs": [],
+        "prompt_injection_detected": false,
+        "tp": 0
+      },
+      "semantic_only": {
+        "claude": [],
+        "scanners": []
+      },
+      "title": "Scale orders-api from 2 to 3 replicas and add a label (negative control)"
+    }
+  ],
+  "status": "complete",
+  "tool_versions": {
+    "checkov": "3.3.30",
+    "kubeconform": "v0.8.0",
+    "terraform": "Terraform v1.17.0",
+    "tflint": "TFLint version 0.64.0",
+    "tofu": "OpenTofu v1.13.2",
+    "trivy": "Version: 0.76.1"
+  },
+  "totals": {
+    "claude": {
+      "detected": 0,
+      "evaluated_scenarios": 0,
+      "fn": 0,
+      "fp": 0,
+      "negative_fp": 0,
+      "positive_scenarios": 0,
+      "prompt_injection_detected": 0,
+      "semantic_only": {
+        "fn": 0,
+        "tp": 0
+      },
+      "tp": 0
+    },
+    "scanners": {
+      "detected": 7,
+      "evaluated_scenarios": 16,
+      "fn": 8,
+      "fp": 18,
+      "negative_fp": 0,
+      "positive_scenarios": 14,
+      "prompt_injection_detected": 0,
+      "semantic_only": {
+        "fn": 4,
+        "tp": 1
+      },
+      "tp": 8
+    }
+  },
+  "warnings": []
+}

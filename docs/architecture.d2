@@ -1,0 +1,89 @@
+# Cover diagram for README / portfolio. Render with `make diagram`.
+# Layout note: the only grid is inside `actions` (a plain ELK chain of 7 steps
+# renders ~5:1). d2 v0.9.0 + elk stacks the root top to bottom when edges enter
+# grid cells, so inputs sit above `actions`, the comment below, and the pipeline
+# reads as a U inside `actions`: in at top left, out at bottom left.
+vars: {
+  d2-config: {
+    layout-engine: elk
+    pad: 60
+  }
+}
+direction: right
+
+title: |md
+  # Claude Code as a read-only infra PR reviewer
+| {
+  near: top-center
+  style.font-size: 48
+}
+
+caption: 'Scanners: 7/14 risks; with Claude: 14/14. 3 unmatched findings. $0.044/review (estimate).' {
+  near: bottom-center
+  shape: text
+  style.font-size: 32
+}
+
+classes: {
+  mine: {
+    style: {
+      fill: "#FFF4E5"
+      stroke: "#E8590C"
+      stroke-width: 3
+      font-color: "#1F1F1F"
+      bold: true
+      font-size: 40
+    }
+  }
+  neutral: {
+    style: {
+      fill: "#F5F6F8"
+      stroke: "#8A94A6"
+      stroke-width: 1
+      font-color: "#1F1F1F"
+      font-size: 40
+    }
+  }
+}
+
+eval: "Eval: 14 seeded scenarios\n+ 2 controls, answer key" {class: mine}
+
+pr: "Pull request\n(TF + K8s diff)" {
+  class: neutral
+  icon: ./icons/git-pull-request-24.svg
+  icon.near: center-left
+}
+
+
+actions: "GitHub Actions" {
+  class: neutral
+  icon: ./icons/workflow-24.svg
+  grid-rows: 2
+  grid-columns: 3
+  vertical-gap: 110
+  horizontal-gap: 300
+
+  scan: "Scan job: fmt/validate, tflint,\nkubeconform, trivy, checkov" {class: mine}
+  artifacts: "Scanner JSON / SARIF" {
+    class: neutral
+    shape: page
+  }
+  claude: "Claude Code headless (Read/Grep/\nGlob only, max-turns, budget)" {class: neutral}
+  post: "Post job (no LLM)" {class: mine}
+  findings: "Findings JSON\n(schema-validated)" {
+    class: mine
+    shape: page
+  }
+  kit: ".claude kit: skills + guard hook\n(from base branch)" {class: mine}
+}
+
+comment: "Sticky PR comment\n+ inline notes" {class: neutral}
+
+pr -> actions.scan: "checkout PR" {class: neutral; style.font-size: 32}
+actions.scan -> actions.artifacts: "results" {class: neutral; style.font-size: 32}
+actions.artifacts -> actions.claude: "diff + scanner JSON" {class: neutral; style.font-size: 32}
+actions.kit -> actions.claude: "rules, deny writes" {class: neutral; style.font-size: 32; style.stroke-dash: 5}
+actions.claude -> actions.findings: "structured_output" {class: neutral; style.font-size: 32}
+actions.findings -> actions.post: "render" {class: neutral; style.font-size: 32}
+actions.post -> comment: "gh api" {class: neutral; style.font-size: 32}
+eval -> actions.scan: "replays scenarios" {class: neutral; style.font-size: 32; style.stroke-dash: 5}

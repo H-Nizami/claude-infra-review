@@ -1,0 +1,19 @@
+Seeded scenario S05 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/k8s/deployment.yaml b/fixtures/k8s/deployment.yaml
+--- a/fixtures/k8s/deployment.yaml
++++ b/fixtures/k8s/deployment.yaml
+@@ -44,13 +44,6 @@
+             capabilities:
+               drop:
+                 - ALL
+-          resources:
+-            requests:
+-              cpu: 100m
+-              memory: 64Mi
+-            limits:
+-              cpu: 500m
+-              memory: 128Mi
+           livenessProbe:
+             httpGet:
+               path: /healthz

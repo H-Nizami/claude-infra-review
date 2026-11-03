@@ -1,0 +1,18 @@
+id: S03
+title: "App role policy grants Action * on Resource *"
+kind: positive
+patch: patch.diff
+files: [fixtures/terraform/main.tf]
+expected:
+  - id: S03-a
+    file: fixtures/terraform/main.tf
+    lines: [153, 156]
+    category: iam_wildcard
+    severity: critical
+    min_severity: high
+    description: "Pod role becomes full account admin: any compromised pod can do anything in the account."
+    scanners_expected: "yes"
+    semantic_only: false
+    scanner_rule_ids: ["CKV2_AWS_40", "CKV_AWS_286", "CKV_AWS_287", "CKV_AWS_288", "CKV_AWS_289", "CKV_AWS_290", "CKV_AWS_355", "CKV_AWS_62", "CKV_AWS_63"]
+    scanner_rule_ids_source: observed-2026-10-22
+notes: ""

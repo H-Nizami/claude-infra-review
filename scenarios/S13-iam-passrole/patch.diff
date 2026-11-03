@@ -1,0 +1,18 @@
+Seeded scenario S13 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/terraform/main.tf b/fixtures/terraform/main.tf
+--- a/fixtures/terraform/main.tf
++++ b/fixtures/terraform/main.tf
+@@ -149,6 +149,12 @@
+         Action   = ["kms:Decrypt"]
+         Resource = [aws_kms_key.data.arn]
+       },
++      {
++        Sid      = "LaunchWorkers"
++        Effect   = "Allow"
++        Action   = ["iam:PassRole", "sts:AssumeRole"]
++        Resource = "*"
++      },
+     ]
+   })
+ }

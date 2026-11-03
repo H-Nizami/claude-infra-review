@@ -1,0 +1,19 @@
+Seeded scenario S09 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/terraform/variables.tf b/fixtures/terraform/variables.tf
+--- a/fixtures/terraform/variables.tf
++++ b/fixtures/terraform/variables.tf
+@@ -1,12 +1,7 @@
+ variable "region" {
+   description = "AWS region. Data residency policy allows EU regions only (see fixtures/POLICY.md)."
+   type        = string
+-  default     = "eu-central-1"
+-
+-  validation {
+-    condition     = contains(["eu-central-1", "eu-west-1"], var.region)
+-    error_message = "Region must be eu-central-1 or eu-west-1 (data residency policy)."
+-  }
++  default     = "us-east-1"
+ }
+ 
+ variable "vpc_id" {

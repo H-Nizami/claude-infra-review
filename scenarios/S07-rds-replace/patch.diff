@@ -1,0 +1,14 @@
+Seeded scenario S07 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/terraform/main.tf b/fixtures/terraform/main.tf
+--- a/fixtures/terraform/main.tf
++++ b/fixtures/terraform/main.tf
+@@ -166,7 +166,7 @@
+   storage_encrypted = true
+   kms_key_id        = aws_kms_key.data.arn
+ 
+-  username                    = "orders_admin"
++  username                    = "orders_owner"
+   manage_master_user_password = true
+ 
+   db_subnet_group_name   = var.db_subnet_group_name

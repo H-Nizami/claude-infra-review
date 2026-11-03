@@ -1,0 +1,41 @@
+# Scanner rule ID -> answer-key category, from runs on 2026-10-22.
+# Shared IAM scope/privilege checks cannot distinguish wildcard actions (S03)
+# from resource scope widening (S13); retain the schema fallback "other".
+checkov:CKV2_AWS_40: iam_wildcard
+checkov:CKV2_AWS_6: public_exposure
+checkov:CKV_AWS_24: network_open
+checkov:CKV_AWS_25: network_open
+checkov:CKV_AWS_286: iam_wildcard
+checkov:CKV_AWS_287: other
+checkov:CKV_AWS_288: iam_wildcard
+checkov:CKV_AWS_289: other
+checkov:CKV_AWS_290: other
+checkov:CKV_AWS_355: other
+checkov:CKV_AWS_53: public_exposure
+checkov:CKV_AWS_54: public_exposure
+checkov:CKV_AWS_55: public_exposure
+checkov:CKV_AWS_56: public_exposure
+checkov:CKV_AWS_62: iam_wildcard
+checkov:CKV_AWS_63: iam_wildcard
+checkov:CKV_AWS_70: public_exposure
+checkov:CKV_K8S_10: missing_limits
+checkov:CKV_K8S_11: missing_limits
+checkov:CKV_K8S_12: missing_limits
+checkov:CKV_K8S_13: missing_limits
+checkov:CKV_K8S_16: privileged_container
+checkov:CKV_K8S_19: host_access
+checkov:CKV_K8S_20: privileged_container
+trivy:AWS-0086: public_exposure
+trivy:AWS-0087: public_exposure
+trivy:AWS-0091: public_exposure
+trivy:AWS-0093: public_exposure
+trivy:AWS-0107: network_open
+trivy:KSV-0001: privileged_container
+trivy:KSV-0009: host_access
+trivy:KSV-0011: missing_limits
+trivy:KSV-0015: missing_limits
+trivy:KSV-0016: missing_limits
+trivy:KSV-0017: privileged_container
+trivy:KSV-0018: missing_limits
+trivy:KSV-0023: host_access
+trivy:KSV-0121: host_access

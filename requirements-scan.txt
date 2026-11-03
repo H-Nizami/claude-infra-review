@@ -1,0 +1,2 @@
+# Scanner-only Python deps (installed into .venv by the scan job). Exact pin.
+checkov==3.3.30

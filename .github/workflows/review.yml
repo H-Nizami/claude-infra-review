@@ -1,0 +1,266 @@
+name: infrastructure-review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, labeled]
+    paths: ["fixtures/**", "scenarios/**", ".github/workflows/review.yml", "prompts/**", "schema/**", ".claude/**"]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Same-repository PR number
+        required: true
+        type: string
+      model:
+        description: Model
+        type: choice
+        options: [claude-sonnet-5-5, claude-haiku-5-5]
+        default: claude-sonnet-5-5
+      max_turns:
+        description: Maximum turns (1 through 6)
+        type: string
+        default: "6"
+
+permissions: {}
+
+concurrency:
+  group: review-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      pr: ${{ steps.resolve.outputs.pr }}
+      head_sha: ${{ steps.resolve.outputs.head_sha }}
+      base_sha: ${{ steps.resolve.outputs.base_sha }}
+      trusted_sha: ${{ steps.resolve.outputs.trusted_sha }}
+      is_cross_repo: ${{ steps.resolve.outputs.is_cross_repo }}
+      labeled: ${{ steps.resolve.outputs.labeled }}
+    steps:
+      # All executable code comes from the default branch. PR checkout is data only.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Resolve and validate PR metadata
+        id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          PR: ${{ github.event.pull_request.number || inputs.pr_number }}
+        run: |
+          [[ "$PR" =~ ^[0-9]+$ ]] || exit 1
+          gh api "repos/$GH_REPO/pulls/$PR" > "$RUNNER_TEMP/pr.json"
+          python3 - <<'PY'
+          import json, os, subprocess
+          from scripts.prepare_review import resolve_metadata
+          data = json.load(open(os.environ['RUNNER_TEMP'] + '/pr.json'))
+          trusted = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+          metadata = resolve_metadata(data, trusted, os.environ['GH_REPO'], os.environ['DEFAULT_BRANCH'])
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              for k, v in metadata.items():
+                  out.write(k + '=' + v + '\n')
+          PY
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ steps.resolve.outputs.head_sha }}
+          path: pr-data
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Copy bounded fixture data and diff
+        env:
+          PR: ${{ steps.resolve.outputs.pr }}
+          HEAD_SHA: ${{ steps.resolve.outputs.head_sha }}
+          BASE_SHA: ${{ steps.resolve.outputs.base_sha }}
+          CIR_SOURCE: pr-data
+        run: python3 scripts/prepare_review.py snapshot
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Install trusted pinned scanners
+        run: |
+          scripts/tools.sh terraform tofu tflint kubeconform trivy
+          python3 -m pip install -r requirements-scan.txt
+      - name: Run scanners (no secrets)
+        run: scripts/scan.sh cir-input/files cir-input/scan
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: cir-input
+          path: |
+            cir-input/pr.diff
+            cir-input/files/fixtures/**/*.tf
+            cir-input/files/fixtures/**/*.yaml
+            cir-input/files/fixtures/**/*.yml
+            cir-input/scan/
+          if-no-files-found: error
+          retention-days: 7
+
+  claude:
+    needs: scan
+    if: >-
+      vars.CIR_REVIEW_ENABLED == 'true' &&
+      needs.scan.outputs.is_cross_repo == 'false' &&
+      (github.event_name == 'workflow_dispatch' || needs.scan.outputs.labeled == 'true')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+    env:
+      CIR_REVIEW_MODE: "1"
+    outputs:
+      reviewed: ${{ steps.save.outputs.reviewed }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.scan.outputs.trusted_sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: cir-input
+          path: cir-input
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install -r requirements.txt
+      - name: Validate bounded model options and trusted prompt
+        id: prompt
+        env:
+          PR: ${{ needs.scan.outputs.pr }}
+          HEAD_SHA: ${{ needs.scan.outputs.head_sha }}
+          BASE_SHA: ${{ needs.scan.outputs.base_sha }}
+          REVIEW_MODEL: ${{ inputs.model || vars.CIR_MODEL || 'claude-sonnet-5-5' }}
+          REVIEW_TURNS: ${{ inputs.max_turns || vars.CIR_MAX_TURNS || '6' }}
+          REVIEW_BUDGET: ${{ vars.CIR_MAX_BUDGET_USD || '0.20' }}
+        run: python3 scripts/prepare_review.py prompt
+      - name: Require exact precharged CI attempt
+        id: budget
+        env:
+          HEAD_SHA: ${{ needs.scan.outputs.head_sha }}
+          REVIEW_BUDGET: ${{ vars.CIR_MAX_BUDGET_USD || '0.20' }}
+        run: |
+          if python3 scripts/reserve_ci.py --check --run-id "$GITHUB_RUN_ID" --run-attempt "$GITHUB_RUN_ATTEMPT" --head-sha "$HEAD_SHA" --usd "$REVIEW_BUDGET"; then
+            echo 'allowed=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'allowed=false' >> "$GITHUB_OUTPUT"
+            echo 'Claude skipped: exact attempt is not precharged in the trusted ledger.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: anthropics/claude-code-action@6b6870e649b5ff408753befeaee5fc7989d4e6a9 # v1.0.258
+        id: claude
+        if: steps.budget.outputs.allowed == 'true'
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          prompt: ${{ steps.prompt.outputs.text }}
+          settings: .claude/settings.json
+          claude_args: ${{ steps.prompt.outputs.args }}
+          use_sticky_comment: "false"
+          track_progress: "false"
+          display_report: "false"
+          show_full_output: "false"
+      - name: Validate structured output and extract numeric usage only
+        id: save
+        if: steps.claude.outcome == 'success'
+        env:
+          FINDINGS: ${{ steps.claude.outputs.structured_output }}
+          EXECUTION_FILE: ${{ steps.claude.outputs.execution_file }}
+          REVIEW_MODEL: ${{ steps.prompt.outputs.model }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          import sys
+          sys.path.insert(0, 'scripts')
+          from validate_findings import validate
+          raw = os.environ['FINDINGS']
+          if len(raw) > 200000:
+              raise SystemExit('Invalid findings: output exceeds limit')
+          try:
+              findings = validate(json.loads(raw))
+          except ValueError:
+              raise SystemExit('Invalid findings: review contract failed')
+          Path('findings.json').write_text(json.dumps(findings))
+          # Execution artifacts contain private tool messages. Never upload or print them.
+          meta = {'model': os.environ['REVIEW_MODEL'], 'num_turns': None, 'usage': {}, 'total_cost_usd': None}
+          try:
+              execution = json.loads(Path(os.environ['EXECUTION_FILE']).read_text())
+              records = execution if isinstance(execution, list) else [execution]
+              result = next((x for x in reversed(records) if x.get('type') == 'result'), {})
+              def numeric(x):
+                  return x if type(x) in (int, float) and 0 <= x < 1000000000 else None
+              meta['num_turns'] = numeric(result.get('num_turns'))
+              meta['total_cost_usd'] = numeric(result.get('total_cost_usd'))
+              meta['usage'] = {k: numeric((result.get('usage') or {}).get(k)) for k in ('input_tokens', 'output_tokens', 'cache_creation_input_tokens', 'cache_read_input_tokens')}
+          except (OSError, ValueError, TypeError, AttributeError):
+              pass
+          Path('run-meta.json').write_text(json.dumps(meta))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('reviewed=true\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as out:
+              out.write('CI attempt precharged in ledger. Subscription USD figures are estimates, not bills; reconcile numeric usage from cir-findings.\n')
+          PY
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: steps.save.outputs.reviewed == 'true'
+        with:
+          name: cir-findings
+          path: |
+            findings.json
+            run-meta.json
+          retention-days: 7
+
+  post:
+    needs: [scan, claude]
+    if: always() && needs.scan.result == 'success' && needs.scan.outputs.is_cross_repo == 'false'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.scan.outputs.trusted_sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - run: python3 -m pip install -r requirements.txt
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: cir-input
+          path: cir-input
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        if: needs.claude.outputs.reviewed == 'true'
+        with:
+          name: cir-findings
+          path: cir-findings
+      - name: Render escaped comments from validated data
+        env:
+          HEAD_SHA: ${{ needs.scan.outputs.head_sha }}
+          REVIEWED: ${{ needs.claude.outputs.reviewed }}
+          FAIL_ON: ${{ vars.CIR_FAIL_ON || 'none' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          args=(--scanners cir-input/scan/normalized.json --reason 'Claude unavailable: gate off, unreserved estimate budget, or review failed')
+          if [ "$REVIEWED" = true ]; then
+            args=(--findings cir-findings/findings.json --meta cir-findings/run-meta.json)
+          fi
+          rc=0
+          python3 scripts/render_comment.py "${args[@]}" --diff cir-input/pr.diff --head-sha "$HEAD_SHA" --run-url "$RUN_URL" --output comment.md --inline inline.json --fail-on "$FAIL_ON" || rc=$?
+          test -s comment.md && test -s inline.json
+          echo "$rc" > fail-gate.txt
+      - name: Update sticky comment and deduplicated inline findings
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          PR: ${{ needs.scan.outputs.pr }}
+          HEAD_SHA: ${{ needs.scan.outputs.head_sha }}
+        run: python3 scripts/post_comment.py --repo "$GH_REPO" --pr "$PR" --head-sha "$HEAD_SHA" --body comment.md --inline inline.json
+      - name: Enforce selected severity threshold
+        run: test "$(cat fail-gate.txt)" = 0

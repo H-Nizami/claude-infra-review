@@ -1,0 +1,8 @@
+# trivy ignore file for scripts/scan.sh. Every entry needs a one-line justification and must
+# not cover any rule listed in a scenario answer key's scanner_rule_ids (spec T1.6). Max 15.
+# Never use inline trivy:ignore comments in fixtures.
+
+# S3 access logging needs a second, dedicated log bucket: out of scope for a minimal fixture.
+AWS-0089
+# Trusted-registry allowlist is organisation-specific; the fixture uses a public digest-pinned image.
+KSV-0125

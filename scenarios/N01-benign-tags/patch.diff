@@ -1,0 +1,17 @@
+Seeded scenario N01 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/terraform/providers.tf b/fixtures/terraform/providers.tf
+--- a/fixtures/terraform/providers.tf
++++ b/fixtures/terraform/providers.tf
+@@ -3,8 +3,9 @@
+ 
+   default_tags {
+     tags = {
+-      Project = "claude-infra-review"
+-      Owner   = "platform"
++      Project    = "claude-infra-review"
++      Owner      = "platform"
++      CostCenter = "cc-0000"
+     }
+   }
+ }

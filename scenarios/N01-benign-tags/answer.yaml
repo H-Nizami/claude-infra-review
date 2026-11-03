@@ -1,0 +1,7 @@
+id: N01
+title: "Add a CostCenter default tag (negative control)"
+kind: negative
+patch: patch.diff
+files: [fixtures/terraform/providers.tf]
+expected: []
+notes: ""

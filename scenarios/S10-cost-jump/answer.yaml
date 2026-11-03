@@ -1,0 +1,18 @@
+id: S10
+title: "orders database instance class jumps from db.t4g.micro to db.r6i.16xlarge"
+kind: positive
+patch: patch.diff
+files: [fixtures/terraform/main.tf]
+expected:
+  - id: S10-a
+    file: fixtures/terraform/main.tf
+    lines: [162, 162]
+    category: cost_jump
+    severity: medium
+    min_severity: low
+    description: "Hourly list price rises by far more than 2x (multi-AZ doubles it again) without a COST-APPROVED line; POLICY.md rule 3."
+    scanners_expected: "no"
+    semantic_only: true
+    scanner_rule_ids: []
+    scanner_rule_ids_source: none-observed
+notes: ""

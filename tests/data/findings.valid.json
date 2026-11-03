@@ -1,0 +1,20 @@
+{
+  "summary": "One infrastructure risk.",
+  "risk_level": "high",
+  "findings": [
+    {
+      "file": "fixtures/terraform/main.tf",
+      "line_start": 2,
+      "line_end": 2,
+      "severity": "high",
+      "category": "network_open",
+      "source": "claude",
+      "rule_id": "semantic",
+      "title": "Open network access",
+      "why_it_matters": "The service becomes reachable by untrusted clients.",
+      "suggested_fix": "Restrict access to the approved private range.",
+      "confidence": 0.9
+    }
+  ],
+  "dropped_scanner_findings": []
+}

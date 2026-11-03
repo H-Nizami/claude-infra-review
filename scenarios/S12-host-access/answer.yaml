@@ -1,0 +1,29 @@
+id: S12
+title: "orders-api pods join the host network and mount the host root filesystem"
+kind: positive
+patch: patch.diff
+files: [fixtures/k8s/deployment.yaml]
+expected:
+  - id: S12-a
+    file: fixtures/k8s/deployment.yaml
+    lines: [20, 20]
+    category: host_access
+    severity: high
+    min_severity: medium
+    description: "Pods share the node's network namespace: can bind host ports and sniff or reach node-local services."
+    scanners_expected: "yes"
+    semantic_only: false
+    scanner_rule_ids: ["CKV_K8S_19", "KSV-0009"]
+    scanner_rule_ids_source: observed-2026-10-22
+  - id: S12-b
+    file: fixtures/k8s/deployment.yaml
+    lines: [70, 79]
+    category: host_access
+    severity: critical
+    min_severity: high
+    description: "hostPath / mounted into the pod: read access to the whole node filesystem (kubelet credentials, other pods' data)."
+    scanners_expected: "yes"
+    semantic_only: false
+    scanner_rule_ids: ["KSV-0023", "KSV-0121"]
+    scanner_rule_ids_source: observed-2026-10-22
+notes: ""

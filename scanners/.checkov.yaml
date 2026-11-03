@@ -1,0 +1,21 @@
+# checkov config for scripts/scan.sh. Every skip needs a one-line justification and must
+# not cover any rule listed in a scenario answer key's scanner_rule_ids (spec T1.6).
+# Max 15 skips. Never use inline #checkov:skip in fixtures.
+framework:
+  - terraform
+  - kubernetes
+  - secrets
+skip-download: true   # no calls to Prisma Cloud; offline, deterministic results
+compact: true
+quiet: true
+skip-check:
+  # Access logging needs a second, dedicated log bucket: out of scope for a minimal fixture.
+  - CKV_AWS_18
+  # Cross-region replication: out of scope for a single-region fixture (and conflicts with EU residency by default).
+  - CKV_AWS_144
+  # S3 event notifications: no consumer exists in the fixture; not a security control.
+  - CKV2_AWS_62
+  # RDS enhanced monitoring needs an extra IAM monitoring role; out of scope for a minimal fixture.
+  - CKV_AWS_118
+  # Postgres query logging needs a custom parameter group; out of scope for a minimal fixture.
+  - CKV2_AWS_30

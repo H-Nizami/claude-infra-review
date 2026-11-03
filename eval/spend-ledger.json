@@ -1,0 +1,422 @@
+{
+  "budget_usd": 2.0,
+  "split": {
+    "eval": 1.5,
+    "ci": 0.5
+  },
+  "entries": [
+    {
+      "ts": "2026-10-23T07:09:40Z",
+      "source": "eval",
+      "scenario": "S07",
+      "model": "claude-sonnet-5-5",
+      "tokens": {},
+      "est_usd": null,
+      "reported_usd": null,
+      "per_run_usd": 0.08,
+      "reservation_id": "dc38703eec6741a19be9fd7cb6f037bc",
+      "status": "failed",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T07:44:35Z",
+      "source": "eval",
+      "scenario": "S07",
+      "model": "claude-sonnet-5-5",
+      "tokens": {},
+      "est_usd": null,
+      "reported_usd": null,
+      "per_run_usd": 0.08,
+      "reservation_id": "2ee2f36fc7b74472a5e4abe62b33cd52",
+      "status": "failed",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T07:46:20Z",
+      "source": "eval",
+      "scenario": "S07",
+      "model": "claude-sonnet-5-5",
+      "tokens": {},
+      "est_usd": null,
+      "reported_usd": null,
+      "per_run_usd": 0.08,
+      "reservation_id": "cb8cd84228b744b5ae8a7dd4392b6217",
+      "status": "failed",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T07:47:34Z",
+      "source": "eval",
+      "scenario": "S07-startup-diagnostic",
+      "model": "claude-sonnet-5-5",
+      "tokens": {},
+      "est_usd": null,
+      "reported_usd": null,
+      "per_run_usd": 0.08,
+      "reservation_id": "07fd31660dcc40bf8331288b5c695270",
+      "status": "failed",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:13:57Z",
+      "source": "eval",
+      "scenario": "S07",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 12,
+        "output_tokens": 2298,
+        "cache_creation_input_tokens": 11702,
+        "cache_read_input_tokens": 40345
+      },
+      "est_usd": 0.0738465,
+      "reported_usd": 0.0835967,
+      "per_run_usd": 0.08,
+      "reservation_id": "696a1b8ef33e47f990e211de215e2c95",
+      "status": "failed",
+      "over_reservation": true
+    },
+    {
+      "ts": "2026-10-23T08:16:56Z",
+      "source": "eval",
+      "scenario": "S07",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 10,
+        "output_tokens": 1734,
+        "cache_creation_input_tokens": 5228,
+        "cache_read_input_tokens": 35084
+      },
+      "est_usd": 0.0417804,
+      "reported_usd": 0.041780399999999995,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "ce297d1e622349908ac99b3057df912c",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:18:56Z",
+      "source": "eval",
+      "scenario": "S01",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 8,
+        "output_tokens": 3560,
+        "cache_creation_input_tokens": 9136,
+        "cache_read_input_tokens": 24434
+      },
+      "est_usd": 0.0746034,
+      "reported_usd": 0.07460339999999999,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "62b4b50c995b47a49b2e1c91afeb1a24",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:19:34Z",
+      "source": "eval",
+      "scenario": "S02",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 8,
+        "output_tokens": 1747,
+        "cache_creation_input_tokens": 6952,
+        "cache_read_input_tokens": 23203
+      },
+      "est_usd": 0.0476143,
+      "reported_usd": 0.047614300000000005,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "cc0a09ba62cf4b78a8d089eda93fba00",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:20:07Z",
+      "source": "eval",
+      "scenario": "S03",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 4,
+        "output_tokens": 1498,
+        "cache_creation_input_tokens": 6995,
+        "cache_read_input_tokens": 12900
+      },
+      "est_usd": 0.044258,
+      "reported_usd": 0.044258,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "03eab2bd774047d58e55030d4eb69d16",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:20:32Z",
+      "source": "eval",
+      "scenario": "S04",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 4,
+        "output_tokens": 1262,
+        "cache_creation_input_tokens": 6370,
+        "cache_read_input_tokens": 12906
+      },
+      "est_usd": 0.0393986,
+      "reported_usd": 0.039398600000000006,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "98be64df429c4e0dbb584be70b75b0b2",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:20:58Z",
+      "source": "eval",
+      "scenario": "S05",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 4,
+        "output_tokens": 1450,
+        "cache_creation_input_tokens": 6826,
+        "cache_read_input_tokens": 12908
+      },
+      "est_usd": 0.0431028,
+      "reported_usd": 0.0431028,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "beff4ef0c7f04ed485597b79452e016a",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:21:32Z",
+      "source": "eval",
+      "scenario": "S06",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 6,
+        "output_tokens": 1003,
+        "cache_creation_input_tokens": 6460,
+        "cache_read_input_tokens": 22884
+      },
+      "est_usd": 0.0381704,
+      "reported_usd": 0.0381704,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "e51f0576860143dd8215eb50ac64fd4c",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:22:04Z",
+      "source": "eval",
+      "scenario": "S07",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 6,
+        "output_tokens": 1170,
+        "cache_creation_input_tokens": 6689,
+        "cache_read_input_tokens": 22886
+      },
+      "est_usd": 0.0407566,
+      "reported_usd": 0.040756600000000004,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "35accc4404f84a678d38a6dc32dedd1b",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:22:51Z",
+      "source": "eval",
+      "scenario": "S08",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 10,
+        "output_tokens": 1569,
+        "cache_creation_input_tokens": 6734,
+        "cache_read_input_tokens": 33282
+      },
+      "est_usd": 0.0459742,
+      "reported_usd": 0.0459742,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "e0741f9f5e0848afaf555b2862ffe4f5",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:23:41Z",
+      "source": "eval",
+      "scenario": "S09",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 4,
+        "output_tokens": 981,
+        "cache_creation_input_tokens": 5932,
+        "cache_read_input_tokens": 12912
+      },
+      "est_usd": 0.0348372,
+      "reported_usd": 0.0348372,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "2ed0bd6d8290472b8a12dc0cdba74bfb",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:24:19Z",
+      "source": "eval",
+      "scenario": "S10",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 8,
+        "output_tokens": 1436,
+        "cache_creation_input_tokens": 6435,
+        "cache_read_input_tokens": 22892
+      },
+      "est_usd": 0.0424052,
+      "reported_usd": 0.042405200000000004,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "1004ca9452bb4a66964db2c95f25c334",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:25:06Z",
+      "source": "eval",
+      "scenario": "S11",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 10,
+        "output_tokens": 1609,
+        "cache_creation_input_tokens": 6851,
+        "cache_read_input_tokens": 33338
+      },
+      "est_usd": 0.0468478,
+      "reported_usd": 0.0468478,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "fe485c43c5f7426497bce94207d7a812",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:25:39Z",
+      "source": "eval",
+      "scenario": "S12",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 6,
+        "output_tokens": 1664,
+        "cache_creation_input_tokens": 6832,
+        "cache_read_input_tokens": 23528
+      },
+      "est_usd": 0.0463328,
+      "reported_usd": 0.0463328,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "a98de04169e14cc1bcd219e408993af7",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:26:11Z",
+      "source": "eval",
+      "scenario": "S13",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 4,
+        "output_tokens": 1448,
+        "cache_creation_input_tokens": 6382,
+        "cache_read_input_tokens": 12904
+      },
+      "est_usd": 0.0413064,
+      "reported_usd": 0.0413064,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "95ca7eb7b2bd40d3875c00effed3b532",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:28:34Z",
+      "source": "eval",
+      "scenario": "S14",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 8,
+        "output_tokens": 2194,
+        "cache_creation_input_tokens": 7234,
+        "cache_read_input_tokens": 23227
+      },
+      "est_usd": 0.0532147,
+      "reported_usd": 0.053214700000000004,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "6fb62005c16845c8adb8be8c4e730e57",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:29:32Z",
+      "source": "eval",
+      "scenario": "N01",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 4,
+        "output_tokens": 596,
+        "cache_creation_input_tokens": 5859,
+        "cache_read_input_tokens": 12907
+      },
+      "est_usd": 0.0306947,
+      "reported_usd": 0.0306947,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "3d3b89cb44a44929aac5c979c8eef500",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:29:39.966127+00:00",
+      "source": "ci",
+      "scenario": "ci-reservation",
+      "model": null,
+      "tokens": {},
+      "est_usd": 0.2,
+      "reported_usd": null,
+      "ci_reservation": {
+        "run_id": "39924805213",
+        "run_attempt": "2",
+        "head_sha": "3a244eb8610696e7051fa8c2b5d59d8a48147fbd"
+      },
+      "status": "failed_before_model",
+      "note": "PR metadata check failed before Claude. Conservative CI precharge retained."
+    },
+    {
+      "ts": "2026-10-23T08:30:06Z",
+      "source": "eval",
+      "scenario": "N02",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 4,
+        "output_tokens": 627,
+        "cache_creation_input_tokens": 5867,
+        "cache_read_input_tokens": 12910
+      },
+      "est_usd": 0.031037,
+      "reported_usd": 0.031037000000000002,
+      "per_run_usd": 0.0835967,
+      "reservation_id": "2dc7f7201971469db26d6afc52dd67fc",
+      "status": "complete",
+      "over_reservation": false
+    },
+    {
+      "ts": "2026-10-23T08:37:54.652518+00:00",
+      "source": "ci",
+      "scenario": "ci-reservation",
+      "model": "claude-sonnet-5-5",
+      "tokens": {
+        "input_tokens": 6,
+        "output_tokens": 1025,
+        "cache_creation_input_tokens": 5855,
+        "cache_read_input_tokens": 22204
+      },
+      "est_usd": 0.2,
+      "reported_usd": 0.036083199999999996,
+      "ci_reservation": {
+        "run_id": "39925610234",
+        "run_attempt": "2",
+        "head_sha": "3a244eb8610696e7051fa8c2b5d59d8a48147fbd"
+      },
+      "status": "complete",
+      "note": "Live demo succeeded. Precharged allowance retained conservatively; numeric CLI usage recorded."
+    }
+  ]
+}

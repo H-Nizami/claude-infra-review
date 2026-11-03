@@ -1,0 +1,18 @@
+id: S07
+title: "Master username change forces replacement of the orders database"
+kind: positive
+patch: patch.diff
+files: [fixtures/terraform/main.tf]
+expected:
+  - id: S07-a
+    file: fixtures/terraform/main.tf
+    lines: [169, 169]
+    category: stateful_replace
+    severity: critical
+    min_severity: high
+    description: "username is ForceNew on aws_db_instance: the plan destroys and recreates orders-db (data loss unless restored from snapshot); violates POLICY.md rule 2."
+    scanners_expected: "no"
+    semantic_only: true
+    scanner_rule_ids: []
+    scanner_rule_ids_source: none-observed
+notes: "Spec section 4.3 proposed changing identifier orders-db -> orders-primary. Checked hashicorp/aws v6.70.0: identifier is NOT ForceNew; the provider renames in place via ModifyDBInstance NewDBInstanceIdentifier (https://github.com/hashicorp/terraform-provider-aws/blob/v6.70.0/internal/service/rds/instance.go#L2603-L2605). The scenario instead changes username, which is ForceNew in the same schema (https://github.com/hashicorp/terraform-provider-aws/blob/v6.70.0/internal/service/rds/instance.go#L701-L707), so the plan destroys and recreates orders-db. Key written before the first scan run."

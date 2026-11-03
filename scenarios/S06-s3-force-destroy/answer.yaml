@@ -1,0 +1,18 @@
+id: S06
+title: "force_destroy enabled on the artifacts bucket"
+kind: positive
+patch: patch.diff
+files: [fixtures/terraform/main.tf]
+expected:
+  - id: S06-a
+    file: fixtures/terraform/main.tf
+    lines: [33, 33]
+    category: destroy_protection
+    severity: high
+    min_severity: medium
+    description: "A later destroy or bucket replacement silently deletes every object and version; violates POLICY.md rule 2."
+    scanners_expected: "unknown"
+    semantic_only: true
+    scanner_rule_ids: []
+    scanner_rule_ids_source: none-observed
+notes: ""

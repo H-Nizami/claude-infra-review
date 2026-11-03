@@ -1,0 +1,18 @@
+id: S02
+title: "Security group opens SSH (22/tcp) to 0.0.0.0/0"
+kind: positive
+patch: patch.diff
+files: [fixtures/terraform/main.tf]
+expected:
+  - id: S02-a
+    file: fixtures/terraform/main.tf
+    lines: [108, 112]
+    category: network_open
+    severity: high
+    min_severity: medium
+    description: "SSH reachable from the whole internet on the app security group."
+    scanners_expected: "yes"
+    semantic_only: false
+    scanner_rule_ids: ["AWS-0107", "CKV_AWS_24"]
+    scanner_rule_ids_source: observed-2026-10-22
+notes: ""

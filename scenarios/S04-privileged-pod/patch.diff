@@ -1,0 +1,17 @@
+Seeded scenario S04 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/k8s/deployment.yaml b/fixtures/k8s/deployment.yaml
+--- a/fixtures/k8s/deployment.yaml
++++ b/fixtures/k8s/deployment.yaml
+@@ -38,9 +38,9 @@
+               containerPort: 9898
+               protocol: TCP
+           securityContext:
+-            allowPrivilegeEscalation: false
++            allowPrivilegeEscalation: true
+             readOnlyRootFilesystem: true
+-            privileged: false
++            privileged: true
+             capabilities:
+               drop:
+                 - ALL

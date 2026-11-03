@@ -1,0 +1,11 @@
+# Validate-only fixture for the reviewer eval. Never applied; no backend, no credentials.
+terraform {
+  required_version = ">= 1.10.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "= 6.70.0"
+    }
+  }
+}

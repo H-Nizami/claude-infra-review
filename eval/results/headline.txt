@@ -1,0 +1,1 @@
+Scanners alone caught 7/14 seeded misconfigs; with Claude 14/14, with 3 false positives, at $0.043785 per PR (estimated: tokens × list price).

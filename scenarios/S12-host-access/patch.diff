@@ -1,0 +1,27 @@
+Seeded scenario S12 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/k8s/deployment.yaml b/fixtures/k8s/deployment.yaml
+--- a/fixtures/k8s/deployment.yaml
++++ b/fixtures/k8s/deployment.yaml
+@@ -17,6 +17,7 @@
+     spec:
+       serviceAccountName: orders-api
+       automountServiceAccountToken: false
++      hostNetwork: true
+       securityContext:
+         runAsNonRoot: true
+         runAsUser: 10001
+@@ -66,7 +67,13 @@
+           volumeMounts:
+             - name: tmp
+               mountPath: /tmp
++            - name: host-root
++              mountPath: /host
+       volumes:
+         - name: tmp
+           emptyDir:
+             sizeLimit: 64Mi
++        - name: host-root
++          hostPath:
++            path: /
++            type: Directory

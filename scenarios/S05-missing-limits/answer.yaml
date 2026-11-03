@@ -1,0 +1,18 @@
+id: S05
+title: "orders-api container loses its resource requests and limits"
+kind: positive
+patch: patch.diff
+files: [fixtures/k8s/deployment.yaml]
+expected:
+  - id: S05-a
+    file: fixtures/k8s/deployment.yaml
+    lines: [28, 59]
+    category: missing_limits
+    severity: medium
+    min_severity: low
+    description: "No CPU/memory requests or limits: noisy-neighbour and node OOM risk, and the scheduler cannot place pods sensibly."
+    scanners_expected: "yes"
+    semantic_only: false
+    scanner_rule_ids: ["CKV_K8S_10", "CKV_K8S_11", "CKV_K8S_12", "CKV_K8S_13", "KSV-0011", "KSV-0015", "KSV-0016", "KSV-0018"]
+    scanner_rule_ids_source: observed-2026-10-22
+notes: ""

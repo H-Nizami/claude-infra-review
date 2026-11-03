@@ -1,0 +1,18 @@
+id: S01
+title: "Public S3 bucket via disabled public access block + public bucket policy"
+kind: positive
+patch: patch.diff
+files: [fixtures/terraform/main.tf]
+expected:
+  - id: S01-a
+    file: fixtures/terraform/main.tf
+    lines: [59, 76]
+    category: public_exposure
+    severity: critical
+    min_severity: high
+    description: "Public access block disabled and a bucket policy grants s3:GetObject to Principal \"*\": every object becomes world-readable."
+    scanners_expected: "yes"
+    semantic_only: false
+    scanner_rule_ids: ["AWS-0086", "AWS-0087", "AWS-0091", "AWS-0093", "CKV2_AWS_6", "CKV_AWS_53", "CKV_AWS_54", "CKV_AWS_55", "CKV_AWS_56", "CKV_AWS_70"]
+    scanner_rule_ids_source: observed-2026-10-22
+notes: ""

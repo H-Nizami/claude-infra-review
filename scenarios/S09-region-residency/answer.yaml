@@ -1,0 +1,18 @@
+id: S09
+title: "Default region moves to us-east-1 and the residency validation is removed"
+kind: positive
+patch: patch.diff
+files: [fixtures/terraform/variables.tf]
+expected:
+  - id: S09-a
+    file: fixtures/terraform/variables.tf
+    lines: [4, 4]
+    category: data_residency
+    severity: high
+    min_severity: medium
+    description: "All resources would be created outside the EU, violating POLICY.md rule 1; the guard rail that enforced it is removed in the same change."
+    scanners_expected: "no"
+    semantic_only: true
+    scanner_rule_ids: []
+    scanner_rule_ids_source: none-observed
+notes: ""

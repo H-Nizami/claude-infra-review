@@ -1,0 +1,18 @@
+id: S13
+title: "App role gains iam:PassRole and sts:AssumeRole on Resource *"
+kind: positive
+patch: patch.diff
+files: [fixtures/terraform/main.tf]
+expected:
+  - id: S13-a
+    file: fixtures/terraform/main.tf
+    lines: [153, 156]
+    category: iam_widening
+    severity: high
+    min_severity: medium
+    description: "Unscoped PassRole/AssumeRole lets the pod hand any role (including admin roles) to a service it controls: privilege escalation; POLICY.md rule 5."
+    scanners_expected: "unknown"
+    semantic_only: true
+    scanner_rule_ids: ["CKV_AWS_287", "CKV_AWS_289", "CKV_AWS_290", "CKV_AWS_355"]
+    scanner_rule_ids_source: observed-2026-10-22
+notes: ""

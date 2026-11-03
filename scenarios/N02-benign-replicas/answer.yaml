@@ -1,0 +1,7 @@
+id: N02
+title: "Scale orders-api from 2 to 3 replicas and add a label (negative control)"
+kind: negative
+patch: patch.diff
+files: [fixtures/k8s/deployment.yaml]
+expected: []
+notes: ""

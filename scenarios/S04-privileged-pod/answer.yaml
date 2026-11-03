@@ -1,0 +1,18 @@
+id: S04
+title: "orders-api container runs privileged with privilege escalation allowed"
+kind: positive
+patch: patch.diff
+files: [fixtures/k8s/deployment.yaml]
+expected:
+  - id: S04-a
+    file: fixtures/k8s/deployment.yaml
+    lines: [41, 43]
+    category: privileged_container
+    severity: critical
+    min_severity: high
+    description: "Privileged container has full access to the node's devices and kernel; container escape is trivial."
+    scanners_expected: "yes"
+    semantic_only: false
+    scanner_rule_ids: ["CKV_K8S_16", "CKV_K8S_20", "KSV-0001", "KSV-0017"]
+    scanner_rule_ids_source: observed-2026-10-22
+notes: ""

@@ -1,0 +1,15 @@
+# gitleaks configuration: default rule set with one narrowly scoped fixture exception.
+# Any future allowlist entry must be narrow (exact path) and explained in a comment.
+[extend]
+useDefault = true
+
+# Seeded scenario S08 (fake hard-coded DB password, spec 4.3 / 12.6). Both conditions must
+# hold: the file is in that one scenario directory AND the match is the exact fake value.
+# A real secret anywhere else, or a different value in that directory, is still reported.
+[[allowlists]]
+description = "S08 seeded fake password (test fixture)"
+# Rule-scoped to avoid v8.30.1 directory traversal treating a global path as a full skip.
+targetRules = ["generic-api-key"]
+condition = "AND"
+paths = ['''^scenarios/S08-hardcoded-secret/(patch\.diff|answer\.yaml)$''']
+regexes = ['''^Example-Only-Not-A-Secret-0000$''']

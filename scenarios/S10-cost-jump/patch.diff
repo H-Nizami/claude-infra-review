@@ -1,0 +1,14 @@
+Seeded scenario S10 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/terraform/main.tf b/fixtures/terraform/main.tf
+--- a/fixtures/terraform/main.tf
++++ b/fixtures/terraform/main.tf
+@@ -159,7 +159,7 @@
+   identifier     = "orders-db"
+   engine         = "postgres"
+   engine_version = "17"
+-  instance_class = "db.t4g.micro"
++  instance_class = "db.r6i.16xlarge"
+ 
+   allocated_storage = 20
+   storage_type      = "gp3"

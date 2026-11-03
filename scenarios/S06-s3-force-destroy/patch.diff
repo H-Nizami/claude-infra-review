@@ -1,0 +1,14 @@
+Seeded scenario S06 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/terraform/main.tf b/fixtures/terraform/main.tf
+--- a/fixtures/terraform/main.tf
++++ b/fixtures/terraform/main.tf
+@@ -30,7 +30,7 @@
+ 
+ resource "aws_s3_bucket" "artifacts" {
+   bucket        = var.artifacts_bucket_name
+-  force_destroy = false
++  force_destroy = true
+ }
+ 
+ resource "aws_s3_bucket_versioning" "artifacts" {

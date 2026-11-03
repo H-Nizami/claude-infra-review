@@ -1,0 +1,16 @@
+Seeded scenario N02 for the claude-infra-review eval (test fixture; see answer.yaml).
+
+diff --git a/fixtures/k8s/deployment.yaml b/fixtures/k8s/deployment.yaml
+--- a/fixtures/k8s/deployment.yaml
++++ b/fixtures/k8s/deployment.yaml
+@@ -5,8 +5,9 @@
+   namespace: shop
+   labels:
+     app.kubernetes.io/name: orders-api
++    app.kubernetes.io/part-of: shop
+ spec:
+-  replicas: 2
++  replicas: 3
+   selector:
+     matchLabels:
+       app.kubernetes.io/name: orders-api
